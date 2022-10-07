@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// structural typedefs:
+
 typedef struct Battery{
   uint8_t pwr_out;
   uint8_t pwr_in;
@@ -25,5 +27,7 @@ typedef struct Rover{
   PowerManager pwwr_manager;
 
 }Rover;
+
+// event functions
 
 #endif
