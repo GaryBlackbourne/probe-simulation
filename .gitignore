@@ -1,0 +1,3 @@
+# ignore cache files, and editor specific shit
+compile-commands.json
+.cache/*
