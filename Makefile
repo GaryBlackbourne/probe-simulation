@@ -8,10 +8,10 @@ OBJ_DIR = output/obj
 
 CC = gcc
 GCC_FLAGS = -I$(INCLUDE_DIR) -Wall -ggdb -std=gnu11
-LD_FLAGS = 
+LD_FLAGS = -pthread
 
 SOURCES = src/main.c
-SOURCES += src/rover-model.c
+SOURCES += src/probe-model.c
 
 all: output/rover
 
