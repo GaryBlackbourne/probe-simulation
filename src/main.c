@@ -1,11 +1,21 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <math.h>
 
-#include "rover-model.h"
+#include "probe-model.h"
 
+void eventloop(){
+
+  return;
+}
 
 int main(int argc, char* argv[]){
-  printf("Hello World!");
+
+  
+  
+  while(true){
+    eventloop();
+  }
   return 0;
 }
 
