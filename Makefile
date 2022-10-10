@@ -1,4 +1,3 @@
-
 INCLUDE_DIR = inc
 SOURCE_DIR = src
 OBJ_DIR = output/obj
@@ -6,12 +5,15 @@ OBJ_DIR = output/obj
 #HEADERS = $(INCLUDE_DIR)/%.h
 #OBJS = $(OBJ_DIR)/%.o
 
-CC = gcc
-GCC_FLAGS = -I$(INCLUDE_DIR) -Wall -ggdb -std=gnu11
+CC = g++
+GCC_FLAGS = -I$(INCLUDE_DIR) -Wall -ggdb -std=c++20
 LD_FLAGS = -pthread
 
-SOURCES = src/main.c
-SOURCES += src/probe-model.c
+SOURCES = src/main.cpp
+SOURCES += src/probe-model.cpp
+SOURCES += src/pwr-mngr.cpp
+SOURCES += src/battery.cpp
+SOURCES += src/solar-panel.cpp
 
 all: output/rover
 

@@ -4,25 +4,19 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef struct Battery{
-  uint8_t pwr_out;
-  uint8_t pwr_in;
-  uint32_t charge_level; // 0 < x < 1 000 000
-  bool charging;
-} Battery;
+#include "battery.h"
+#include "solar-panel.h"
 
-typedef struct SolarPanel{
-  uint8_t pwr_out;
-  bool extracted;
-} SolarPanel;
-
-typedef struct PowerManager{
+class PowerManager{
+private:
   Battery battery2;
   Battery battery1;
   SolarPanel solar_panel;
-} PowerManager;
+public:
+  PowerManager();
+  ~PowerManager();
 
-
-PowerManager pwr_mngr_simulation_step(PowerManager*, uint8_t);
+  void simulation_step();
+};
 
 #endif

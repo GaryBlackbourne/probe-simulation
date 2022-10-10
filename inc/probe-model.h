@@ -1,17 +1,20 @@
 #ifndef _ROVER_MODEL_H
 #define _ROVER_MODEL_H
 
-#include <stdint.h>
-#include <stdbool.h>
-
-#include "pos-sys.h"
+#include <pthread.h>
 #include "pwr-mngr.h"
 
-typedef struct Probe{
+class Probe{
+private:
   PowerManager pwr_manager;
-  PositioningSystem POS_system;
-} Probe;
+  pthread_mutex_t probe_lock;
+public:
+    Probe();
+    ~Probe();
 
-// event functions
+    void simulate_step();
+    // void print data() ?
+};
+
 
 #endif
