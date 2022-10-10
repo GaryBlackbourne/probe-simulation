@@ -1,14 +1,22 @@
 #include "probe-model.h"
+#include "pthread.h"
 
 Probe::Probe() {
-  pthread_mutex_init(&(this->probe_lock), NULL);
+  pthread_mutex_init(&probe_lock, NULL);
 }
 
 Probe::~Probe() {
-  pthread_mutex_destroy(&(this->probe_lock));
+  pthread_mutex_destroy(&probe_lock);
 }
 
 void Probe::simulate_step() {
 
-  return;
+  pthread_mutex_lock(&probe_lock);
+
+  pwr_manager.simulation_step();
+
+  // further simulation sstep functions called here
+
+  pthread_mutex_unlock(&probe_lock);
+
 }

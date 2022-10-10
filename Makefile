@@ -15,9 +15,9 @@ SOURCES += src/pwr-mngr.cpp
 SOURCES += src/battery.cpp
 SOURCES += src/solar-panel.cpp
 
-all: output/rover
+all: output/probe
 
-output/rover: $(SOURCES)
+output/probe: $(SOURCES)
 	$(CC) $(GCC_FLAGS)  $^ -o $@ $(LD_FLAGS)
 
 

@@ -9,10 +9,14 @@
 
 class PowerManager{
 private:
+
   Battery battery2;
   Battery battery1;
+
   SolarPanel solar_panel;
+
 public:
+
   PowerManager();
   ~PowerManager();
 

@@ -6,9 +6,13 @@
 
 class Probe{
 private:
+
   PowerManager pwr_manager;
+
   pthread_mutex_t probe_lock;
+
 public:
+
     Probe();
     ~Probe();
 

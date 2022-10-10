@@ -6,6 +6,10 @@
 PowerManager::PowerManager() {}
 PowerManager::~PowerManager() {}
 
+void PowerManager::simulation_step() {
+  // todo
+}
+
 /*
 PowerManager pwr_mngr_simulation_step(PowerManager* old_state, uint8_t power_req){
 
