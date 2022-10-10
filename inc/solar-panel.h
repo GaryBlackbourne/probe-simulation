@@ -20,7 +20,9 @@ public:
   void extract_solar_panel();
   void retract_solar_panel();
 
-  uint8_t get_power() const;
+  [[nodiscard]] bool is_extracted() const;
+
+  [[nodiscard]] uint8_t get_power() const;
 };
 
 #endif

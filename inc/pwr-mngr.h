@@ -20,7 +20,11 @@ public:
   PowerManager();
   ~PowerManager();
 
-  void simulation_step();
+  [[nodiscard]] uint8_t get_active_batteries_cnt() const;
+  [[nodiscard]] uint8_t get_charging_batteries_cnt() const;
+  [[nodiscard]] uint8_t get_online_batteries_cnt() const;
+
+  void simulation_step(uint8_t);
 };
 
 #endif

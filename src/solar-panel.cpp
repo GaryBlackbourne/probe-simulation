@@ -18,3 +18,7 @@ void SolarPanel::retract_solar_panel() {
 uint8_t SolarPanel::get_power() const {
   return pwr_out;
 }
+
+bool SolarPanel::is_extracted() const {
+  return extracted;
+}
