@@ -1,3 +1,4 @@
 # ignore cache files, and editor specific shit
 compile_commands.json
 .cache/*
+output/*

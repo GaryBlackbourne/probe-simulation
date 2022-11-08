@@ -17,12 +17,12 @@ public:
   SolarPanel();
   ~SolarPanel();
 
-  void extract_solar_panel();
-  void retract_solar_panel();
+  void extract();
+  void retract();
 
   [[nodiscard]] bool is_extracted() const;
 
-  [[nodiscard]] uint8_t get_power() const;
+  [[nodiscard]] uint8_t output_power() const;
 };
 
 #endif

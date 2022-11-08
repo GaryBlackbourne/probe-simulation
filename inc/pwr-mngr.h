@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <vector>
 
 #include "battery.h"
 #include "solar-panel.h"
@@ -10,10 +11,9 @@
 class PowerManager{
 private:
 
-  Battery battery2;
-  Battery battery1;
+  std::vector<Battery> batteries;
 
-  SolarPanel solar_panel;
+  std::vector<SolarPanel> solar_panels;
 
 public:
 
@@ -22,8 +22,11 @@ public:
 
   [[nodiscard]] uint8_t get_active_batteries_cnt() const;
   [[nodiscard]] uint8_t get_charging_batteries_cnt() const;
-  [[nodiscard]] uint8_t get_online_batteries_cnt() const;
+  [[nodiscard]] uint8_t get_enabled_batteries_cnt() const;
 
+  //  [[nodiscard]] uint8_t get_extracted_solar_panels_cnt() const;
+  [[nodiscard]] uint8_t get_solar_power_sum() const;
+  
   void simulation_step(uint8_t);
 };
 

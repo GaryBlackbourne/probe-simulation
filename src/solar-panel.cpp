@@ -3,19 +3,19 @@
 SolarPanel::SolarPanel() {}
 SolarPanel::~SolarPanel() {}
 
-void SolarPanel::extract_solar_panel() {
+void SolarPanel::extract() {
   extracted = true;
 
   pwr_out = MAX_PWR_OUT;
 }
 
-void SolarPanel::retract_solar_panel() {
+void SolarPanel::retract() {
   extracted = false;
 
   pwr_out = 0;
 }
 
-uint8_t SolarPanel::get_power() const {
+uint8_t SolarPanel::output_power() const {
   return pwr_out;
 }
 

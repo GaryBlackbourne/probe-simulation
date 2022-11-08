@@ -1,9 +1,10 @@
 #ifndef _BATTERY_H
 #define _BATTERY_H
 
-#include <stdint.h>
-
 #define BATTERY_MAX_PWR_OUTPUT 50
+#define BATTERY_MAX_CHARGE_LEVEL 1000000
+
+#include <stdint.h>
 
 class Battery{
 private:
@@ -23,10 +24,14 @@ public:
 
   void charge();
   void stop_charge();
+
   [[nodiscard]] bool is_charging() const;
+  [[nodiscard]] bool is_enabled() const;
+  [[nodiscard]] bool is_active() const;
 
-  [[nodiscard]] bool is_enabled() const ;
-
+  uint8_t charge(uint8_t);
+  uint8_t discharge(uint8_t);
+  
   void simulation_step(uint8_t, uint8_t);
 };
 
