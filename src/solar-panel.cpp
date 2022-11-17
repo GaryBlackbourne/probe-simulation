@@ -1,6 +1,8 @@
 #include "solar-panel.h"
 
-SolarPanel::SolarPanel() {}
+SolarPanel::SolarPanel() {
+  this->extract();
+}
 SolarPanel::~SolarPanel() {}
 
 void SolarPanel::extract() {

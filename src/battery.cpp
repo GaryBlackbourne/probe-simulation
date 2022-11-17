@@ -2,7 +2,11 @@
 #include <cstdint>
 
 
-Battery::Battery() {}
+Battery::Battery() {
+  charge_level = 500000;
+  charge();
+  enable();
+}
 Battery::~Battery() {}
 
 void Battery::enable() {
