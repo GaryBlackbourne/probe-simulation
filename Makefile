@@ -17,7 +17,9 @@ GCC_FLAGS += -Wall
 GCC_FLAGS += -ggdb
 GCC_FLAGS += -std=c++20
 
-LD_FLAGS = -pthread -L$(HTTPSERVER_LIB) -lhttpserver
+LD_FLAGS = -pthread
+LD_FLAGS += -L$(HTTPSERVER_LIB)
+LD_FLAGS += -lhttpserver
 
 SOURCES = src/main.cpp
 SOURCES += src/probe-model.cpp
