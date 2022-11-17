@@ -1,13 +1,23 @@
+
 INCLUDE_DIR = inc
+INCLUDE_JSON_DIR = /home/geri/dev/json/single_include
 SOURCE_DIR = src
+
 OBJ_DIR = output/obj
+
+HTTPSERVER_LIB = /usr/local/lib
 
 #HEADERS = $(INCLUDE_DIR)/%.h
 #OBJS = $(OBJ_DIR)/%.o
 
 CC = g++
-GCC_FLAGS = -I$(INCLUDE_DIR) -Wall -ggdb -std=c++20
-LD_FLAGS = -pthread
+GCC_FLAGS = -I$(INCLUDE_DIR)
+GCC_FLAGS += -I$(INCLUDE_JSON_DIR)
+GCC_FLAGS += -Wall
+GCC_FLAGS += -ggdb
+GCC_FLAGS += -std=c++20
+
+LD_FLAGS = -pthread -L$(HTTPSERVER_LIB) -lhttpserver
 
 SOURCES = src/main.cpp
 SOURCES += src/probe-model.cpp
