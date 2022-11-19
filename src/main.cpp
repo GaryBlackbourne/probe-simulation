@@ -1,3 +1,5 @@
+#include <iostream>
+#include <memory>
 #include <unistd.h>
 #include <pthread.h>
 #include <httpserver.hpp>
@@ -7,7 +9,7 @@
 
 #include "probe-model.h"
 
-#define SIMULATION_RESOLUTION_US 500000 // us = 500 ms
+#define SIMULATION_RESOLUTION_US 1000000 // us = 500 ms
 #define DEBUG true
 
 using namespace httpserver;
@@ -34,6 +36,20 @@ public:
   }
 };
 
+/** @class Probestatusresource
+ *  @brief This class is a resource for the http server, and servers as an interface to querry the probes status. It stores a reference for the probe object.
+ *
+ */
+class ProbeStatusResource : public httpserver::http_resource {
+private:
+  Probe& probe_model;
+public:
+  ProbeStatusResource(Probe& p_m_arg) : probe_model(p_m_arg) {}
+
+  std::shared_ptr<http_response> render(const http_request&) {
+    return std::shared_ptr<http_response>(new string_response(probe_model.serialize().dump()));
+  }
+};
 
 /**@struct thread_args
  * @brief This struct encapsulates the arguments for the webserver thread
@@ -96,10 +112,11 @@ int main(int argc, char* argv[]){
 
   // sem_post(&sync_sem);
   while(run){
-
+    
     probe_model.simulate_step();
+    std::cout << probe_model.serialize() << std::endl;
     usleep(SIMULATION_RESOLUTION_US);
-
+    
   }
   /*
   ws.stop();                                // stop webserver

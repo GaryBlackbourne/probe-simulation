@@ -6,6 +6,10 @@
 
 #include <stdint.h>
 
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
+
 class Battery{
 private:
 
@@ -31,6 +35,8 @@ public:
 
   uint8_t charge(uint8_t);
   uint8_t discharge(uint8_t);
+
+  json serialize();
   
   void simulation_step(uint8_t, uint8_t);
 };

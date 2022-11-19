@@ -2,8 +2,11 @@
 #define _SOLAR_PANEL_H
 
 #include "stdint.h"
+#include "nlohmann/json.hpp"
 
-#define MAX_PWR_OUT  100
+#define MAX_PWR_OUT 100
+
+using json = nlohmann::json;
 
 class SolarPanel{
 private:
@@ -19,6 +22,8 @@ public:
 
   void extract();
   void retract();
+
+  json serialize();
 
   [[nodiscard]] bool is_extracted() const;
 

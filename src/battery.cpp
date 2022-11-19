@@ -1,5 +1,6 @@
 #include "battery.h"
 #include <cstdint>
+#include <string>
 
 
 Battery::Battery() {
@@ -70,3 +71,13 @@ uint8_t Battery::discharge(uint8_t pwr_out){
 }
 
 void Battery::simulation_step(uint8_t pwr_required, uint8_t pwr_available) {}
+
+json Battery::serialize() {
+
+  json battery_data_json;
+  battery_data_json["charge-level"] = std::to_string(charge_level);
+  battery_data_json["charging"] = (charging) ? "true" : "false";
+  battery_data_json["enabled"] = (enabled) ? "true" : "false";
+  
+  return battery_data_json;
+}

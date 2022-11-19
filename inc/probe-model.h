@@ -5,6 +5,9 @@
 
 #include <pthread.h>
 #include "pwr-mngr.h"
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
 
 class Probe{
 private:
@@ -15,12 +18,16 @@ private:
 
 public:
 
-    Probe();
-    ~Probe();
+  Probe();
+  ~Probe();
 
-    void simulate_step();
-    // void print data() ?
+  void lock();
+  void unlock();
+
+  json serialize();
+
+  void simulate_step();
+  // void print data() ?
 };
-
 
 #endif
