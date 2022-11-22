@@ -6,6 +6,5 @@ This project is a simple simulation of a satelite. The program is just a simple 
 
 ## dependencies
 
-
- - JSON - [github](https://github.com/nlohmann/json)
- - HTTP server - [link](https://github.com/etr/libhttpserver)
+ - JSON - [github link](https://github.com/nlohmann/json)
+ - HTTP server - [github link](https://github.com/etr/libhttpserver)
