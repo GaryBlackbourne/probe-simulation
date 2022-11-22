@@ -32,5 +32,11 @@ all: output/probe
 output/probe: $(SOURCES)
 	$(CC) $(GCC_FLAGS)  $^ -o $@ $(LD_FLAGS)
 
+run:
+	./output/probe
 
+debug:
+	gdb /output/probe
+
+.PHONY: run debug
 
