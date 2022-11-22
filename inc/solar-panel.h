@@ -13,15 +13,15 @@ private:
 
   uint8_t pwr_out;
 
-  bool extracted;
+  uint8_t extract_level;
 
 public:
 
   SolarPanel();
   ~SolarPanel();
 
-  void extract();
-  void retract();
+  void set_extract_level(uint8_t percentage);
+  uint8_t get_extract_level() const;
 
   json serialize();
 

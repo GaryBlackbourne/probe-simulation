@@ -5,7 +5,7 @@
 
 Battery::Battery() {
   charge_level = 500000;
-  charge();
+  stop_charge();
   enable();
 }
 Battery::~Battery() {}

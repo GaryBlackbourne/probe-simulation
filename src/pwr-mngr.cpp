@@ -25,7 +25,7 @@ PowerManager::~PowerManager() {}
 uint8_t PowerManager::get_active_batteries_cnt() const {
   uint8_t battery_cnt = 0;
 
-  for(auto bat : batteries){
+  for(auto& bat : batteries){
     if(bat.is_active()){
       battery_cnt ++;
     }
@@ -37,7 +37,7 @@ uint8_t PowerManager::get_active_batteries_cnt() const {
 uint8_t PowerManager::get_charging_batteries_cnt() const {
   uint8_t battery_cnt = 0;
 
-  for(auto bat: batteries){
+  for(auto& bat: batteries){
     if(bat.is_charging()){
       battery_cnt ++;
     }
@@ -48,7 +48,7 @@ uint8_t PowerManager::get_charging_batteries_cnt() const {
 uint8_t PowerManager::get_enabled_batteries_cnt() const {
   uint8_t battery_cnt = 0;
 
-  for(auto bat : batteries){
+  for(auto& bat : batteries){
     if(bat.is_enabled()){
       battery_cnt ++;
     }
@@ -59,7 +59,7 @@ uint8_t PowerManager::get_enabled_batteries_cnt() const {
 uint8_t PowerManager::get_solar_power_sum() const {
   uint8_t pwr_out = 0;
   
-  for(auto sol : solar_panels){
+  for(auto& sol : solar_panels){
     pwr_out += sol.output_power();
   }
   
@@ -82,10 +82,10 @@ void PowerManager::simulation_step_consumption(uint8_t pwr_required) {
 
   uint8_t remaining = consumption;
   uint8_t old_remaining = 0;
-  while((consumption_per_bat != 0) || (old_remaining != remaining)){
+  while((consumption_per_bat != 0) && (old_remaining != remaining)){
     old_remaining = remaining;
     remaining = 0;
-    for(auto bat: batteries){
+    for(auto& bat: batteries){
       remaining += bat.discharge(consumption_per_bat);
     }
     consumption_per_bat = remaining / active_batteries_cnt;
@@ -111,10 +111,10 @@ void PowerManager::simulation_step_production() {
 
   uint8_t remaining = production;
   uint8_t old_remaining = 0;
-  while((production_per_bat != 0) || (remaining != old_remaining)){
+  while((production_per_bat != 0) && (remaining != old_remaining)){
     old_remaining = remaining;
     remaining = 0;
-    for(auto bat: batteries){
+    for (auto& bat : batteries) {
       remaining += bat.charge(production_per_bat);
     }
     production_per_bat = remaining / charging_batteries_cnt;
@@ -136,13 +136,13 @@ json PowerManager::serialize(){
   pwr_manager_data_json["valid_power_draw"] = (valid_pwr_draw) ? "true" : "false";
   
   unsigned idx = 0;
-  for(auto bat : batteries){
+  for(auto& bat : batteries){
     pwr_manager_data_json["battery" + std::to_string(idx)] = bat.serialize();
     idx ++;
   }
   
   idx = 0;
-  for(auto sol : solar_panels){
+  for(auto& sol : solar_panels){
     pwr_manager_data_json["solar-panel" + std::to_string(idx)] = sol.serialize();
     idx++;
   }

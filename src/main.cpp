@@ -114,7 +114,7 @@ int main(int argc, char* argv[]){
   while(run){
     
     probe_model.simulate_step();
-    std::cout << probe_model.serialize() << std::endl;
+    std::cout << probe_model.serialize().dump(4) << std::endl;
     usleep(SIMULATION_RESOLUTION_US);
     
   }
