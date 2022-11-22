@@ -16,6 +16,8 @@ private:
 
   pthread_mutex_t probe_lock;
 
+  bool simulation_run;
+
 public:
 
   Probe();
@@ -25,6 +27,11 @@ public:
   void unlock();
 
   json serialize();
+
+  void start_simulation();
+  void stop_simulation();
+
+  bool is_sim_running() const;
 
   void simulate_step();
   // void print data() ?

@@ -7,6 +7,7 @@
 using json = nlohmann::json;
 
 Probe::Probe() {
+  simulation_run = true;
   pthread_mutex_init(&probe_lock, NULL);
 }
 
@@ -35,3 +36,14 @@ void Probe::simulate_step() {
   return;
 }
 
+bool Probe::is_sim_running() const {
+  return simulation_run;
+}
+
+void Probe::start_simulation() {
+  simulation_run = true;
+}
+
+void Probe::stop_simulation() {
+  simulation_run = false;
+}
