@@ -1,10 +1,8 @@
 #include "pwr-mngr.h"
 #include "battery.h"
 #include "solar-panel.h"
-#include <cstdint>
-#include <exception>
+#include <stdint.h>
 #include <limits>
-#include <stdexcept>
 #include <string>
 
 //---------------------------
@@ -12,11 +10,11 @@
 //---------------------------
 PowerManager::PowerManager() {
   // init battery management with two batteries
-  batteries.push_back(Battery{});
-  batteries.push_back(Battery{});
+  batteries.push_back(Battery{"battery 1"});
+  batteries.push_back(Battery{"battery 2"});
 
   // init solar farm with solar panels
-  solar_panels.push_back(SolarPanel{});
+  solar_panels.push_back(SolarPanel{"solar panel 1"});
   valid_pwr_draw = true;
 }
 
@@ -137,13 +135,13 @@ json PowerManager::serialize(){
   
   unsigned idx = 0;
   for(auto& bat : batteries){
-    pwr_manager_data_json["battery" + std::to_string(idx)] = bat.serialize();
+    pwr_manager_data_json[bat.get_name()] = bat.serialize();
     idx ++;
   }
   
   idx = 0;
   for(auto& sol : solar_panels){
-    pwr_manager_data_json["solar-panel" + std::to_string(idx)] = sol.serialize();
+    pwr_manager_data_json[sol.get_name()] = sol.serialize();
     idx++;
   }
 
