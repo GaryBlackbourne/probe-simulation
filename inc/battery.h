@@ -5,6 +5,7 @@
 #define BATTERY_MAX_CHARGE_LEVEL 1000000
 
 #include <stdint.h>
+#include <string>
 
 #include "nlohmann/json.hpp"
 
@@ -14,13 +15,16 @@ class Battery{
 private:
 
   uint32_t charge_level; // 0 < x < 1 000 000
-  bool charging;
 
+  bool charging;
   bool enabled;
+
+  std::string name;
 
 public:
 
-  Battery();
+  Battery(std::string& name);
+  Battery(std::string&& name);
   ~Battery();
 
   void enable();
@@ -36,9 +40,11 @@ public:
   uint8_t charge(uint8_t);
   uint8_t discharge(uint8_t);
 
+  void set_name(std::string&& new_name);
+  std::string get_name() const;
+
   json serialize();
   
-  void simulation_step(uint8_t, uint8_t);
 };
 
 #endif

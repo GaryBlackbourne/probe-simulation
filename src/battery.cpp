@@ -3,11 +3,20 @@
 #include <string>
 
 
-Battery::Battery() {
+Battery::Battery(std::string&& name) {
   charge_level = 500000;
   stop_charge();
   enable();
+  this->name = std::move(name);
 }
+
+Battery::Battery(std::string& name) {
+  charge_level = 500000;
+  stop_charge();
+  enable();
+  this->name = name;
+}
+
 Battery::~Battery() {}
 
 void Battery::enable() {
@@ -70,11 +79,16 @@ uint8_t Battery::discharge(uint8_t pwr_out){
   return 0;
 }
 
-void Battery::simulation_step(uint8_t pwr_required, uint8_t pwr_available) {}
+void Battery::set_name(std::string &&new_name) { name = std::move(new_name); }
+
+std::string Battery::get_name() const {
+  return std::string{name};
+}
 
 json Battery::serialize() {
 
   json battery_data_json;
+  battery_data_json["name"] = name;
   battery_data_json["charge-level"] = std::to_string(charge_level);
   battery_data_json["charging"] = (charging) ? "true" : "false";
   battery_data_json["enabled"] = (enabled) ? "true" : "false";
