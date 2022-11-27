@@ -31,7 +31,7 @@ json Probe::serialize() {
 
 void Probe::simulate_step() {
   lock();
-  pwr_manager.simulation_step(PWR_CONSUMPTION);
+  pwr_manager.simulation_step();
   unlock();
   return;
 }
@@ -46,4 +46,28 @@ void Probe::start_simulation() {
 
 void Probe::stop_simulation() {
   simulation_run = false;
+}
+
+bool Probe::add_battery(std::string &name) {
+  return pwr_manager.add_battery(name);
+}
+
+bool Probe::remove_battery(std::string &name) {
+  return pwr_manager.remove_battery(name);
+}
+
+bool Probe::rename_battery(std::string &old_name, std::string &new_name) {
+  return pwr_manager.rename_battery(old_name, new_name);
+}
+
+bool Probe::add_solar_panel(std::string &name) {
+  return pwr_manager.add_solar_panel(name);
+}
+
+bool Probe::remove_solar_panell(std::string &name) {
+  return pwr_manager.remove_solar_panel(name);
+}
+
+bool Probe::rename_solar_panel(std::string &old_name, std::string &new_name) {
+  return pwr_manager.rename_solar_panel(old_name, new_name);
 }
