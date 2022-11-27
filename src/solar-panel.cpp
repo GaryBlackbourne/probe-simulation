@@ -1,10 +1,15 @@
 #include "solar-panel.h"
 #include "nlohmann/json.hpp"
-#include <cstdint>
 #include <stdint.h>
 #include <string>
 
-SolarPanel::SolarPanel() {
+SolarPanel::SolarPanel(std::string name) {
+  this->name = name;
+  set_extract_level(0);
+}
+
+SolarPanel::SolarPanel(std::string&& name) {
+  this->name = std::move(name);
   set_extract_level(0);
 }
 
@@ -21,9 +26,16 @@ void SolarPanel::set_extract_level(uint8_t percentage) {
   pwr_out = MAX_PWR_OUT * (percentage / 100);
 }
 
+std::string SolarPanel::get_name() const { return std::string{name}; }
+
+void SolarPanel::set_name(std::string &&new_name){
+  this->name = std::move(new_name);
+}
+
 json SolarPanel::serialize(){
 
   json solar_panel_data_json;
+  solar_panel_data_json["name"] = name;
   solar_panel_data_json["pwr-output"] = std::to_string(pwr_out);
   solar_panel_data_json["extract-level"] = std::to_string(extract_level);
   
@@ -37,3 +49,4 @@ uint8_t SolarPanel::output_power() const {
 uint8_t SolarPanel::get_extract_level() const {
   return extract_level;
 }
+
