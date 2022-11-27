@@ -16,6 +16,7 @@ PowerManager::PowerManager() {
   // init solar farm with solar panels
   solar_panels.push_back(SolarPanel{"solar panel 1"});
   valid_pwr_draw = true;
+  pwr_draw = 100;
 }
 
 PowerManager::~PowerManager() {}
@@ -121,8 +122,8 @@ void PowerManager::simulation_step_production() {
   return;
 }
 
-void PowerManager::simulation_step(uint8_t pwr_required) {
-  simulation_step_consumption(pwr_required);
+void PowerManager::simulation_step() {
+  simulation_step_consumption(pwr_draw);
   simulation_step_production();
   return;
 }
@@ -147,6 +148,25 @@ bool PowerManager::remove_battery(std::string &name) {
   return false;
 }
 
+bool PowerManager::rename_battery(std::string &old_name, std::string new_name) {
+  Battery* target = nullptr;
+
+  for(auto& bat : batteries) {
+    if(bat.get_name() == new_name){
+      return false;
+    }
+    if(bat.get_name() == old_name){
+      target = &bat;
+    }
+  }
+
+  if(target != nullptr){
+    target->set_name(std::move(new_name));
+    return true;
+  }
+  return false;
+}
+
 bool PowerManager::add_solar_panel(std::string &name) {
   for(auto& sol : solar_panels){
     if(sol.get_name() == name){
@@ -163,6 +183,25 @@ bool PowerManager::remove_solar_panel(std::string &name) {
       solar_panels.push_back(SolarPanel{name});
       return true;
     }
+  }
+  return false;
+}
+
+bool PowerManager::rename_solar_panel(std::string &old_name, std::string new_name) {
+  SolarPanel* target = nullptr;
+
+  for(auto& sol : solar_panels) {
+    if(sol.get_name() == new_name){
+      return false;
+    }
+    if(sol.get_name() == old_name){
+      target = &sol;
+    }
+  }
+
+  if(target != nullptr){
+    target->set_name(std::move(new_name));
+    return true;
   }
   return false;
 }
@@ -185,4 +224,14 @@ json PowerManager::serialize(){
   }
 
   return pwr_manager_data_json;
+}
+
+void PowerManager::set_pwr_draw(uint16_t pwr_draw) {
+  // maybe set maximal pwr draw?
+  this->pwr_draw = pwr_draw;
+  return;
+}
+
+uint16_t PowerManager::get_pwr_draw() const {
+  return this->pwr_draw;
 }
