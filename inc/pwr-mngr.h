@@ -35,6 +35,12 @@ public:
 
   bool pwr_draw_is_valid() const;
 
+  bool add_battery(std::string& name);
+  bool remove_battery(std::string& name);
+
+  bool add_solar_panel(std::string& name);
+  bool remove_solar_panel(std::string& name);
+
   json serialize();
   
   //  [[nodiscard]] uint8_t get_extracted_solar_panels_cnt() const;nlohmann::
