@@ -21,7 +21,7 @@ private:
 
 public:
 
-  SolarPanel(std::string name);
+  SolarPanel(std::string& name);
   SolarPanel(std::string&& name);
   ~SolarPanel();
 
