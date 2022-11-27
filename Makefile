@@ -39,5 +39,8 @@ run:
 debug:
 	gdb /output/probe
 
-.PHONY: run debug
+clean:
+	rm output/*
+
+.PHONY: run debug clean
 
