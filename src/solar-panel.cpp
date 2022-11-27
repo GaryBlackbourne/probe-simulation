@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string>
 
-SolarPanel::SolarPanel(std::string name) {
+SolarPanel::SolarPanel(std::string& name) {
   this->name = name;
   set_extract_level(0);
 }
