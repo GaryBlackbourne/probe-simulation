@@ -1,8 +1,9 @@
 #include <httpserver.hpp>
 #include <semaphore.h>
+#include <string>
 
+#include "battery.h"
 #include "nlohmann/json.hpp"
-
 #include "probe-model.h"
 
 using namespace httpserver;
@@ -23,8 +24,9 @@ public:
     msg = json::parse(R"({ "address" : "0x07", "data" : "0x55" })");
   }
 
-  std::shared_ptr<http_response> render_GET(const http_request&) {
-    return std::shared_ptr<http_response>(new string_response(msg.dump()));
+  std::shared_ptr<http_response> render_POST(const http_request& param) {
+    const std::string data = param.get_content();
+    return std::shared_ptr<http_response>(new string_response(data.c_str()));
   }
 };
 
@@ -43,17 +45,58 @@ public:
   }
 };
 
+class ProbeBatteryResource : public httpserver::http_resource {
+private:
+  Probe* sim_model;
+public:
+  ProbeBatteryResource(Probe* p_m_arg) : sim_model(p_m_arg) {}
+
+  std::shared_ptr<http_response> render_PUT(const http_request& request) {
+
+    std::string response = "Ok";
+    int response_code = 200;
+    
+    json msg = json::parse(request.get_content());
+    std::string name = msg["name"];
+    std::string command = msg["command"];
+
+    bool exist = false;
+    if(command == "charging"){
+      if(!sim_model->power_manager().set_battery_charging(name, msg["value"])){
+	response = "No battery with this name present";
+	response_code = 400;
+      }
+    } else if(command == "enabled"){
+      if(!sim_model->power_manager().enable_battery(name)){
+	response = "No battery with this name present";
+	response_code = 400;
+      }
+    } else if(command == "rename"){
+      if(!sim_model->power_manager().rename_battery(name, msg["value"])){
+	response = "No battery with this name present";
+	response_code = 400;
+      }
+    } else {
+      response = "No such command";
+      response_code = 400;
+    }
+    
+    return std::shared_ptr<http_response>(new string_response(response, response_code));
+  }
+};
+
 class ProbeStopResource : public httpserver::http_resource {
 private:
   Probe* sim_model;
 public:
   ProbeStopResource(Probe* p_m_arg) : sim_model(p_m_arg) {}
 
-  std::shared_ptr<http_response> render_POST(const http_request&) {
+  std::shared_ptr<http_response> render_POST(const http_request& param) {
     sim_model->stop_simulation();
     return std::shared_ptr<http_response>(new string_response("Shutting down!"));
   }
 };
+
 /**@struct thread_args
  * @brief This struct encapsulates the arguments for the webserver thread
  *

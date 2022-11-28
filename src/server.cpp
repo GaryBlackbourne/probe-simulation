@@ -15,10 +15,15 @@ void* http_server_thread(void * thread_arg){
   probe_status_resource.set_allowing("GET", true);
   ProbeStopResource probe_stop_resource{sim_model};
   probe_stop_resource.set_allowing("POST", true);
+  TstResource tst_resource{};
+  tst_resource.set_allowing("POST", true);
+  tst_resource.allow_all();
+  
 
   // registering resources
   ws->register_resource("/get-probe-status", &probe_status_resource);
   ws->register_resource("/stop", &probe_stop_resource);
+  ws->register_resource("/test", &tst_resource);
 
   // synchronise with siulation
   //sem_wait(sync_sem);
