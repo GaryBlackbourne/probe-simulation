@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "nlohmann/json.hpp"
+#include "pwr-mngr.h"
 
 using json = nlohmann::json;
 
@@ -44,10 +45,11 @@ void Probe::start_simulation() {
   simulation_run = true;
 }
 
-void Probe::stop_simulation() {
-  simulation_run = false;
-}
+void Probe::stop_simulation() { simulation_run = false; }
 
+PowerManager &Probe::power_manager() { return pwr_manager; }
+
+/*
 bool Probe::add_battery(std::string &name) {
   return pwr_manager.add_battery(name);
 }
@@ -71,3 +73,4 @@ bool Probe::remove_solar_panell(std::string &name) {
 bool Probe::rename_solar_panel(std::string &old_name, std::string &new_name) {
   return pwr_manager.rename_solar_panel(old_name, new_name);
 }
+*/
