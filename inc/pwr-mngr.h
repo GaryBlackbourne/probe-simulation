@@ -41,6 +41,7 @@ public:
   bool pwr_draw_is_valid() const;
 
   bool add_battery(std::string& name);
+  bool add_battery(Battery&& newbattery);
   bool remove_battery(std::string& name);
   bool rename_battery(std::string& old_name, std::string new_name);
   bool set_battery_charging(std::string& name, bool charging);
@@ -48,6 +49,7 @@ public:
   bool disable_battery(std::string& name);
 
   bool add_solar_panel(std::string& name);
+  bool add_solar_panel(SolarPanel&& newsolarpanel);
   bool remove_solar_panel(std::string& name);
   bool rename_solar_panel(std::string& old_name, std::string new_name);
   bool extract_solar_panel(std::string& name, uint8_t level);

@@ -13,6 +13,11 @@ SolarPanel::SolarPanel(std::string&& name) {
   set_extract_level(0);
 }
 
+SolarPanel::SolarPanel(std::string& name, uint8_t extract_level){
+  this->name = name;
+  set_extract_level(extract_level);
+}
+
 SolarPanel::~SolarPanel() {}
 
 void SolarPanel::set_extract_level(uint8_t percentage) {

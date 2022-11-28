@@ -1,6 +1,7 @@
 #ifndef _BATTERY_H
 #define _BATTERY_H
 
+#include <cstdint>
 #define BATTERY_MAX_PWR_OUTPUT 50
 #define BATTERY_MAX_CHARGE_LEVEL 1000000
 
@@ -25,6 +26,7 @@ public:
 
   Battery(std::string& name);
   Battery(std::string&& name);
+  Battery(uint32_t charge_level, std::string& name);
   ~Battery();
 
   void enable();

@@ -23,6 +23,7 @@ public:
 
   SolarPanel(std::string& name);
   SolarPanel(std::string&& name);
+  SolarPanel(std::string& name, uint8_t extract_level);
   ~SolarPanel();
 
   void set_extract_level(uint8_t percentage);

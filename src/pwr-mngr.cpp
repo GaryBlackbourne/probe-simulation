@@ -138,6 +138,16 @@ bool PowerManager::add_battery(std::string &name) {
   return true;
 }
 
+bool PowerManager::add_battery(Battery&& newbattery){
+  for(auto& bat : batteries){
+    if(bat.get_name() == newbattery.get_name()){
+      return false;
+    }
+  }
+  batteries.push_back(std::move(newbattery));
+  return true;
+}
+
 bool PowerManager::remove_battery(std::string &name) {
   for(auto it = batteries.begin(); it != batteries.end(); it++){
     if (it->get_name() == name){

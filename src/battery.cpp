@@ -17,6 +17,16 @@ Battery::Battery(std::string& name) {
   this->name = name;
 }
 
+Battery::Battery(uint32_t charge_level, std::string& name){
+  this->charge_level = charge_level;
+  if(this->charge_level > 1000000){
+    this->charge_level = 1000000;
+  }
+  this->name = name;
+  stop_charge();
+  enable();
+}
+
 Battery::~Battery() {}
 
 void Battery::enable() {
