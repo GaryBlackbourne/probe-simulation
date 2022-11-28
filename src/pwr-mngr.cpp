@@ -177,6 +177,45 @@ bool PowerManager::add_solar_panel(std::string &name) {
   return true;
 }
 
+bool PowerManager::set_battery_charging(std::string &name, bool charging_param) {
+  bool exist = false;
+  for(auto& bat : batteries) {
+    if(bat.get_name() == name){
+      exist = true;
+      if(charging_param) {
+	bat.charge();
+      } else {
+	bat.stop_charge();
+      }
+    }
+  }
+  return exist;
+}
+
+bool PowerManager::enable_battery(std::string &name) {
+  bool exist = false;
+  for (auto& bat : batteries) {
+    if(bat.get_name() == name){
+      exist = true;
+      bat.enable();
+    }
+  }
+  return exist;
+}
+
+bool PowerManager::disable_battery(std::string &name) {
+  bool exist = false;
+  for(auto& bat : batteries){
+    if(bat.get_name() == name){
+      exist = true;
+      bat.disable();
+    }
+  }
+  return exist;
+}
+
+
+
 bool PowerManager::remove_solar_panel(std::string &name) {
   for(auto it = solar_panels.begin(); it != solar_panels.end(); it++){
     if(it->get_name() == name){
@@ -204,6 +243,17 @@ bool PowerManager::rename_solar_panel(std::string &old_name, std::string new_nam
     return true;
   }
   return false;
+}
+
+bool PowerManager::extract_solar_panel(std::string &name, uint8_t level) {
+  bool exist = false;
+  for (auto& sol : solar_panels){
+    if(sol.get_name() == name){
+      exist = true;
+      sol.set_extract_level(level);
+    }
+  }
+  return exist;
 }
 
 json PowerManager::serialize(){
