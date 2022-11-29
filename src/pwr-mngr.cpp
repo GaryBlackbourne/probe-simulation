@@ -187,6 +187,16 @@ bool PowerManager::add_solar_panel(std::string &name) {
   return true;
 }
 
+bool PowerManager::add_solar_panel(SolarPanel &&newsolarpanel) {
+  for(auto& sol : solar_panels){
+    if(sol.get_name() == newsolarpanel.get_name()){
+      return false;
+    }
+  }
+  solar_panels.push_back(std::move(newsolarpanel));
+  return true;
+}
+
 bool PowerManager::set_battery_charging(std::string &name, bool charging_param) {
   bool exist = false;
   for(auto& bat : batteries) {
@@ -266,22 +276,34 @@ bool PowerManager::extract_solar_panel(std::string &name, uint8_t level) {
   return exist;
 }
 
+json PowerManager::batteries_serialize() const {
+  json batteries_json;
+  unsigned idx = 0;
+  for(auto& bat : batteries){
+    batteries_json[bat.get_name()] = bat.serialize();
+    idx ++;
+  }
+  return batteries_json;
+}
+
+json PowerManager::solar_panels_serialize() const {
+  json solar_panels_json;
+  unsigned idx = 0;
+  for(auto& sol : solar_panels){
+    solar_panels_json[sol.get_name()] = sol.serialize();
+    idx++;
+  }
+  return solar_panels_json;
+}
+
 json PowerManager::serialize(){
 
   json pwr_manager_data_json;
   pwr_manager_data_json["valid_power_draw"] = (valid_pwr_draw) ? "true" : "false";
-  
-  unsigned idx = 0;
-  for(auto& bat : batteries){
-    pwr_manager_data_json[bat.get_name()] = bat.serialize();
-    idx ++;
-  }
-  
-  idx = 0;
-  for(auto& sol : solar_panels){
-    pwr_manager_data_json[sol.get_name()] = sol.serialize();
-    idx++;
-  }
+  pwr_manager_data_json["pwr_draw"] = this->pwr_draw;
+
+  pwr_manager_data_json["batteries"] = batteries_serialize();
+  pwr_manager_data_json["solar-panels"] = solar_panels_serialize();
 
   return pwr_manager_data_json;
 }

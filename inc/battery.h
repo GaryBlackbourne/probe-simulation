@@ -45,7 +45,7 @@ public:
   void set_name(std::string&& new_name);
   std::string get_name() const;
 
-  json serialize();
+  json serialize() const;
   
 };
 

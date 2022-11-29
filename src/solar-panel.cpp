@@ -37,7 +37,7 @@ void SolarPanel::set_name(std::string &&new_name){
   this->name = std::move(new_name);
 }
 
-json SolarPanel::serialize(){
+json SolarPanel::serialize() const {
 
   json solar_panel_data_json;
   solar_panel_data_json["name"] = name;

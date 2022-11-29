@@ -95,7 +95,7 @@ std::string Battery::get_name() const {
   return std::string{name};
 }
 
-json Battery::serialize() {
+json Battery::serialize() const {
 
   json battery_data_json;
   battery_data_json["name"] = name;

@@ -32,7 +32,7 @@ public:
   std::string get_name () const;
   void set_name(std::string&& new_name);
   
-  json serialize();
+  json serialize() const;
 
   [[nodiscard]] bool is_extracted() const;
 

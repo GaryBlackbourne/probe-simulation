@@ -3,6 +3,7 @@
 #include <semaphore.h>
 
 #include "server.h"
+#include "solar-panel.h"
 
 void* http_server_thread(void * thread_arg){
 
@@ -66,13 +67,23 @@ std::shared_ptr<http_response> ProbeBatteryResource::render_PUT(const http_reque
     return std::shared_ptr<http_response>(new string_response(response, response_code));
   }
   
-  if(command == "charging"){
-    if(!sim_model->power_manager().set_battery_charging(name, msg["value"])){
+  if(command == "charge"){
+    if(!sim_model->power_manager().set_battery_charging(name, true)){
       response = "No battery with this name present";
       response_code = 400;
     }
-  } else if(command == "enabled"){
+  }  else if(command == "stop-charge"){
+    if(!sim_model->power_manager().set_battery_charging(name, false)){
+      response = "No battery with this name present";
+      response_code = 400;
+    }
+  } else if(command == "enable"){
     if(!sim_model->power_manager().enable_battery(name)){
+      response = "No battery with this name present";
+      response_code = 400;
+    }
+  }  else if(command == "disable"){
+    if(!sim_model->power_manager().disable_battery(name)){
       response = "No battery with this name present";
       response_code = 400;
     }
@@ -95,9 +106,9 @@ std::shared_ptr<http_response> ProbeBatteryResource::render_POST(const http_requ
   
   json msg = json::parse(request.get_content());
   std::string bat_name = msg["name"];
-  uint32_t charge_level = msg["charge_level"];
+  uint32_t charge_level = msg["charge-level"];
   
-  if(bat_name.empty() || !msg.contains("charge_level")){
+  if(bat_name.empty() || !msg.contains("charge-level")){
     response = "Invalid JSON";
     response_code = 400;
     return std::shared_ptr<http_response> (new string_response(response, response_code));
@@ -141,9 +152,9 @@ std::shared_ptr<http_response> ProbeSolarPanelResource::render_POST(const http_r
   
   json msg = json::parse(request.get_content());
   std::string sol_name = msg["name"];
-  uint8_t extract_level = msg["extract_level"];
+  uint8_t extract_level = msg["extract-level"];
   
-  if(sol_name.empty() || !msg.contains("extract_level")){
+  if(sol_name.empty() || !msg.contains("extract-level")){
     response = "Invalid JSON";
     response_code = 400;
     return std::shared_ptr<http_response> (new string_response(response, response_code));
@@ -172,7 +183,7 @@ std::shared_ptr<http_response> ProbeSolarPanelResource::render_PUT(const http_re
   std::string command = msg["command"];
   std::string name = msg["name"];
   
-  if(command == "name") {
+  if(command == "rename") {
     if(!sim_model->power_manager().rename_battery(name, msg["value"])){
       response = "No Solar panel with this name present";
       response_code = 400;
@@ -190,8 +201,7 @@ std::shared_ptr<http_response> ProbeSolarPanelResource::render_PUT(const http_re
   return std::shared_ptr<http_response> (new string_response(response, response_code));
 }
 
-std::shared_ptr<http_response>
-ProbeSolarPanelResource::render_DELETE(const http_request &request) {
+std::shared_ptr<http_response> ProbeSolarPanelResource::render_DELETE(const http_request &request) {
 
   std::string response = "Ok";
   int response_code = 200;

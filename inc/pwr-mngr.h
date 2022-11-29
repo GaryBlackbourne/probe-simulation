@@ -26,18 +26,20 @@ private:
   void simulation_step_consumption(uint8_t pwr_required);
   void simulation_step_production();
 
+  json batteries_serialize() const;
+  json solar_panels_serialize() const;
+
 public:
 
   PowerManager();
   ~PowerManager();
 
-  void set_pwr_draw(uint16_t);
-  uint16_t get_pwr_draw() const;
-  
   [[nodiscard]] uint8_t get_active_batteries_cnt() const;
   [[nodiscard]] uint8_t get_charging_batteries_cnt() const;
   [[nodiscard]] uint8_t get_enabled_batteries_cnt() const;
 
+  void set_pwr_draw(uint16_t);
+  uint16_t get_pwr_draw() const;
   bool pwr_draw_is_valid() const;
 
   bool add_battery(std::string& name);
