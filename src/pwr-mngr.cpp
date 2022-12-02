@@ -14,7 +14,7 @@ PowerManager::PowerManager() {
   batteries.push_back(Battery{"battery 2"});
 
   // init solar farm with solar panels
-  solar_panels.push_back(SolarPanel{"solar panel 1"});
+  solar_panels.push_back(SolarPanel{"solar-panel 1"});
   valid_pwr_draw = true;
   pwr_draw = 100;
 }
