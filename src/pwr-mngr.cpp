@@ -70,7 +70,7 @@ void PowerManager::simulation_step_consumption(uint8_t pwr_required) {
   uint8_t consumption = pwr_required;         // ennyit fogyasztunk
   uint8_t active_batteries_cnt = get_active_batteries_cnt();
 
-  if((active_batteries_cnt == 0) & (pwr_required > 0)){
+  if((active_batteries_cnt == 0) && (pwr_required > 0)){
     valid_pwr_draw = false;
     return;
   }else{
@@ -92,6 +92,8 @@ void PowerManager::simulation_step_consumption(uint8_t pwr_required) {
 
   if(remaining != 0){
     valid_pwr_draw = false;
+  }else{
+    valid_pwr_draw = true;
   }
   
   return;
@@ -239,7 +241,7 @@ bool PowerManager::disable_battery(std::string &name) {
 bool PowerManager::remove_solar_panel(std::string &name) {
   for(auto it = solar_panels.begin(); it != solar_panels.end(); it++){
     if(it->get_name() == name){
-      solar_panels.push_back(SolarPanel{name});
+      solar_panels.erase(it);
       return true;
     }
   }
