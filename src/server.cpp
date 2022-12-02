@@ -15,25 +15,47 @@ void* http_server_thread(void * thread_arg){
   // allocating resources
   ProbeStatusResource probe_status_resource{sim_model};
   probe_status_resource.set_allowing("GET", true);
+
   ProbeStopResource probe_stop_resource{sim_model};
   probe_stop_resource.set_allowing("POST", true);
+
   TstResource tst_resource{};
   tst_resource.set_allowing("POST", true);
-  tst_resource.allow_all();
+
+  ProbeBatteryResource probe_battery_resource{sim_model};
+  probe_battery_resource.set_allowing("PUT", true);
+  probe_battery_resource.set_allowing("POST", true);
+  probe_battery_resource.set_allowing("DELETE", true);
+
+  ProbeSolarPanelResource probe_solar_panel_resource{sim_model};
+  probe_solar_panel_resource.set_allowing("PUT", true);
+  probe_solar_panel_resource.set_allowing("POST", true);
+  probe_solar_panel_resource.set_allowing("DELETE", true);
+
+  ProbePwrManagerResource probe_pwr_manager_resource{sim_model};
+  probe_pwr_manager_resource.set_allowing("PUT", true);
+  probe_pwr_manager_resource.set_allowing("POST", true);
+  probe_pwr_manager_resource.set_allowing("DELETE", true);
+
+
   
 
   // registering resources
   ws->register_resource("/get-probe-status", &probe_status_resource);
   ws->register_resource("/stop", &probe_stop_resource);
   ws->register_resource("/test", &tst_resource);
+  ws->register_resource("/battery", &probe_battery_resource);
+  ws->register_resource("/solar-panel", &probe_solar_panel_resource);
+  ws->register_resource("/pwr-manager", &probe_pwr_manager_resource);
 
   // synchronise with siulation
-  //sem_wait(sync_sem);
+  sem_wait(sync_sem);
 
   std::cout << "Webserver started!" << std::endl;
-
   // run webserver
   ws->start(true);
+
+  std::cout << "Webserver Stopped!" << std::endl;
 
   pthread_exit(NULL);
 }
