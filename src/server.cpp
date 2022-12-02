@@ -37,7 +37,6 @@ void* http_server_thread(void * thread_arg){
   probe_pwr_manager_resource.set_allowing("POST", true);
   probe_pwr_manager_resource.set_allowing("DELETE", true);
 
-
   
 
   // registering resources
@@ -206,7 +205,7 @@ std::shared_ptr<http_response> ProbeSolarPanelResource::render_PUT(const http_re
   std::string name = msg["name"];
   
   if(command == "rename") {
-    if(!sim_model->power_manager().rename_battery(name, msg["value"])){
+    if(!sim_model->power_manager().rename_solar_panel(name, msg["value"])){
       response = "No Solar panel with this name present";
       response_code = 400;
     }
