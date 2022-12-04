@@ -28,6 +28,20 @@ public:
   std::shared_ptr<http_response> render_POST(const http_request& param);
 };
 
+/** @class TstResource
+ *  @brief This class is a resource for the http server, and implements a get response
+ *
+ *  @var msg is a json object which stores data for testing
+ *
+ */
+class ProbePingResource : public httpserver::http_resource {
+private:
+public:
+  ProbePingResource() {}
+
+  std::shared_ptr<http_response> render_GET(const http_request& param);
+};
+
 /** @class Probestatusresource
  *  @brief This class is a resource for the http server, and servers as an interface to querry the probes status. It stores a reference for the probe object.
  *

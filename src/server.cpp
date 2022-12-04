@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include <microhttpd.h>
 #include <semaphore.h>
 
@@ -22,6 +23,9 @@ void* http_server_thread(void * thread_arg){
   TstResource tst_resource{};
   tst_resource.set_allowing("POST", true);
 
+  ProbePingResource ping_resource;
+  ping_resource.set_allowing("GET", true);
+
   ProbeBatteryResource probe_battery_resource{sim_model};
   probe_battery_resource.set_allowing("PUT", true);
   probe_battery_resource.set_allowing("POST", true);
@@ -37,9 +41,8 @@ void* http_server_thread(void * thread_arg){
   probe_pwr_manager_resource.set_allowing("POST", true);
   probe_pwr_manager_resource.set_allowing("DELETE", true);
 
-  
-
   // registering resources
+  ws->register_resource("/ping", &ping_resource);
   ws->register_resource("/get-probe-status", &probe_status_resource);
   ws->register_resource("/stop", &probe_stop_resource);
   ws->register_resource("/test", &tst_resource);
@@ -59,9 +62,13 @@ void* http_server_thread(void * thread_arg){
   pthread_exit(NULL);
 }
 
-
-
-
+std::shared_ptr<http_response> ProbePingResource::render_GET(const http_request &param){
+  std::string response = "ACK";
+  int response_code = 200;
+  return std::shared_ptr<http_response> (new string_response("ACK", response_code));
+}
+ 
+ 
 
 TstResource::TstResource() {
   msg = json::parse(R"({ "address" : "0x07", "data" : "0x55" })");
