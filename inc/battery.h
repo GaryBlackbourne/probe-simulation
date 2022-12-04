@@ -39,8 +39,8 @@ public:
   [[nodiscard]] bool is_enabled() const;
   [[nodiscard]] bool is_active() const;
 
-  uint8_t charge(uint8_t);
-  uint8_t discharge(uint8_t);
+  uint32_t charge(uint32_t);
+  uint32_t discharge(uint32_t);
 
   void set_name(std::string&& new_name);
   std::string get_name() const;

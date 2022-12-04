@@ -55,8 +55,8 @@ uint8_t PowerManager::get_enabled_batteries_cnt() const {
   return battery_cnt;
 }
 
-uint8_t PowerManager::get_solar_power_sum() const {
-  uint8_t pwr_out = 0;
+uint32_t PowerManager::get_solar_power_sum() const {
+  uint32_t pwr_out = 0;
   
   for(auto& sol : solar_panels){
     pwr_out += sol.output_power();
@@ -65,9 +65,9 @@ uint8_t PowerManager::get_solar_power_sum() const {
   return pwr_out;
 }
 
-void PowerManager::simulation_step_consumption(uint8_t pwr_required) {
+void PowerManager::simulation_step_consumption(uint32_t pwr_required) {
   
-  uint8_t consumption = pwr_required;         // ennyit fogyasztunk
+  uint32_t consumption = pwr_required;         // ennyit fogyasztunk
   uint8_t active_batteries_cnt = get_active_batteries_cnt();
 
   if((active_batteries_cnt == 0) && (pwr_required > 0)){
@@ -77,10 +77,10 @@ void PowerManager::simulation_step_consumption(uint8_t pwr_required) {
     valid_pwr_draw = true;
   }
 
-  uint8_t consumption_per_bat = consumption / active_batteries_cnt;
+  uint32_t consumption_per_bat = consumption / active_batteries_cnt;
 
-  uint8_t remaining = consumption;
-  uint8_t old_remaining = 0;
+  uint32_t remaining = consumption;
+  uint32_t old_remaining = 0;
   while((consumption_per_bat != 0) && (old_remaining != remaining)){
     old_remaining = remaining;
     remaining = 0;
@@ -101,17 +101,17 @@ void PowerManager::simulation_step_consumption(uint8_t pwr_required) {
 
 void PowerManager::simulation_step_production() {
   
-  uint8_t production = get_solar_power_sum(); // ezzel töltünk
+  uint32_t production = get_solar_power_sum(); // ezzel töltünk
   uint8_t charging_batteries_cnt = get_charging_batteries_cnt();
 
   if(charging_batteries_cnt == 0){
     return;
   }
   
-  uint8_t production_per_bat = production / charging_batteries_cnt;
+  uint32_t production_per_bat = production / charging_batteries_cnt;
 
-  uint8_t remaining = production;
-  uint8_t old_remaining = 0;
+  uint32_t remaining = production;
+  uint32_t old_remaining = 0;
   while((production_per_bat != 0) && (remaining != old_remaining)){
     old_remaining = remaining;
     remaining = 0;
@@ -310,12 +310,12 @@ json PowerManager::serialize(){
   return pwr_manager_data_json;
 }
 
-void PowerManager::set_pwr_draw(uint16_t pwr_draw) {
+void PowerManager::set_pwr_draw(uint32_t pwr_draw) {
   // maybe set maximal pwr draw?
   this->pwr_draw = pwr_draw;
   return;
 }
 
-uint16_t PowerManager::get_pwr_draw() const {
+uint32_t PowerManager::get_pwr_draw() const {
   return this->pwr_draw;
 }

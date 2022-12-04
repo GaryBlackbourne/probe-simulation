@@ -1,6 +1,7 @@
 #ifndef _PWR_MNGR_H
 #define _PWR_MNGR_H
 
+#include <cstdint>
 #include <stdint.h>
 #include <stdbool.h>
 #include <vector>
@@ -19,11 +20,11 @@ private:
 
   std::vector<SolarPanel> solar_panels;
 
-  uint16_t pwr_draw;
+  uint32_t pwr_draw;
   
   bool valid_pwr_draw;
   
-  void simulation_step_consumption(uint8_t pwr_required);
+  void simulation_step_consumption(uint32_t pwr_required);
   void simulation_step_production();
 
   json batteries_serialize() const;
@@ -38,8 +39,8 @@ public:
   [[nodiscard]] uint8_t get_charging_batteries_cnt() const;
   [[nodiscard]] uint8_t get_enabled_batteries_cnt() const;
 
-  void set_pwr_draw(uint16_t);
-  uint16_t get_pwr_draw() const;
+  void set_pwr_draw(uint32_t);
+  uint32_t get_pwr_draw() const;
   bool pwr_draw_is_valid() const;
 
   bool add_battery(std::string& name);
@@ -59,7 +60,7 @@ public:
   json serialize();
   
   //  [[nodiscard]] uint8_t get_extracted_solar_panels_cnt() const;nlohmann::
-  [[nodiscard]] uint8_t get_solar_power_sum() const;
+  [[nodiscard]] uint32_t get_solar_power_sum() const;
   
   void simulation_step();
 };

@@ -55,7 +55,7 @@ bool Battery::is_charging() const {
 
 bool Battery::is_active() const { return (enabled & !charging); }
 
-uint8_t Battery::charge(uint8_t pwr_in){
+uint32_t Battery::charge(uint32_t pwr_in){
 
   if(!(charging && enabled)){
     return pwr_in;
@@ -72,7 +72,7 @@ uint8_t Battery::charge(uint8_t pwr_in){
   }
 }
 
-uint8_t Battery::discharge(uint8_t pwr_out){
+uint32_t Battery::discharge(uint32_t pwr_out){
 
   if(!(!charging && enabled)){
     return pwr_out;

@@ -47,7 +47,7 @@ json SolarPanel::serialize() const {
   return solar_panel_data_json;
 }
 
-uint8_t SolarPanel::output_power() const {
+uint32_t SolarPanel::output_power() const {
   return pwr_out;
 }
 

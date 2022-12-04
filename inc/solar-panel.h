@@ -13,7 +13,7 @@ using json = nlohmann::json;
 class SolarPanel{
 private:
 
-  uint8_t pwr_out;
+  uint32_t pwr_out;
 
   uint8_t extract_level;
 
@@ -36,7 +36,7 @@ public:
 
   [[nodiscard]] bool is_extracted() const;
 
-  [[nodiscard]] uint8_t output_power() const;
+  [[nodiscard]] uint32_t output_power() const;
 };
 
 #endif
