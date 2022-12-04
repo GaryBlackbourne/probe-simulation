@@ -301,7 +301,7 @@ json PowerManager::solar_panels_serialize() const {
 json PowerManager::serialize(){
 
   json pwr_manager_data_json;
-  pwr_manager_data_json["valid_power_draw"] = (valid_pwr_draw) ? "true" : "false";
+  pwr_manager_data_json["valid_power_draw"] = (valid_pwr_draw) ? true : false;
   pwr_manager_data_json["pwr_draw"] = this->pwr_draw;
 
   pwr_manager_data_json["batteries"] = batteries_serialize();

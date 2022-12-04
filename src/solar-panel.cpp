@@ -41,8 +41,8 @@ json SolarPanel::serialize() const {
 
   json solar_panel_data_json;
   solar_panel_data_json["name"] = name;
-  solar_panel_data_json["pwr-output"] = std::to_string(pwr_out);
-  solar_panel_data_json["extract-level"] = std::to_string(extract_level);
+  solar_panel_data_json["pwr-output"] = pwr_out;
+  solar_panel_data_json["extract-level"] = extract_level;
   
   return solar_panel_data_json;
 }

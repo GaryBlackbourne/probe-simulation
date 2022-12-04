@@ -99,9 +99,9 @@ json Battery::serialize() const {
 
   json battery_data_json;
   battery_data_json["name"] = name;
-  battery_data_json["charge-level"] = std::to_string(charge_level);
-  battery_data_json["charging"] = (charging) ? "true" : "false";
-  battery_data_json["enabled"] = (enabled) ? "true" : "false";
+  battery_data_json["charge-level"] = charge_level;
+  battery_data_json["charging"] = (charging) ? true : false;
+  battery_data_json["enabled"] = (enabled) ? true : false;
   
   return battery_data_json;
 }
