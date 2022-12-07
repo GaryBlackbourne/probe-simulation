@@ -28,7 +28,7 @@ void SolarPanel::set_extract_level(uint8_t percentage) {
     extract_level = percentage;
   }
 
-  pwr_out = MAX_PWR_OUT * (percentage / 100);
+  pwr_out = (uint32_t)(MAX_PWR_OUT * ((double)percentage / 100));
 }
 
 std::string SolarPanel::get_name() const { return std::string{name}; }
