@@ -27,6 +27,7 @@ SOURCES += src/pwr-mngr.cpp
 SOURCES += src/battery.cpp
 SOURCES += src/solar-panel.cpp
 SOURCES += src/server.cpp
+#SOURCES += src/signal_handler.cpp
 
 all: output/probe
 
