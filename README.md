@@ -1,4 +1,4 @@
-# Probe simulator in C
+# Probe simulator in C++
 
 ## Introduction
 
